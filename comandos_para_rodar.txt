@@ -1,3 +1,7 @@
 Para testar as alterações feitas, rodar no TERMINAL do PYCHARM: 
 
 C:\Users\raffa\Desktop\Trabalhos 10 Periodo\E-Science\Trabalho noWorkflow\noworkflow\capture>python setup.py install
+
+Para rodar o codigo
+
+C:\Users\raffa\Desktop\Trabalhos 10 Periodo\E-Science\Trabalho noWorkflow\noworkflow\tests\database>now run -v plus.py
