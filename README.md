@@ -122,7 +122,7 @@ Each new run produces a different trial that will be stored with a sequential id
 
 Verifying the module dependencies is a time consuming step, and scientists can bypass this step by using the *-b* flag if they know that no library or source code has changed. The current trial then inherits the module dependencies of the previous one.
 
-It is possible to collect more information than what is collected by default, such as variable usages and dependencias.
+It is possible to collect more information than what is collected by default, such as variable usages and dependencies.
 To perform a dynamic program slicing and capture those information, just run
 ```bash
 $ now run -e Tracer simulation.py data1.dat data2.dat
