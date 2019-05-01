@@ -1,5 +1,5 @@
 import sys
-
+import mysql.connector
 
 def factorial(n):
     fat = 1
@@ -26,6 +26,24 @@ def plus():
     print(result_fib)
     print(result_fact)
     print(result)
+
+    print("------db--------") #pep 249 contem as diretrizes para api de conexao a db
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        passwd="root",
+        database="plus"
+    )
+
+    mycursor = mydb.cursor()
+
+    mycursor.execute("SELECT * FROM number")
+
+    myresult = mycursor.fetchall()
+
+    for x in myresult:
+        print(x)
+        
     return result
 
 
