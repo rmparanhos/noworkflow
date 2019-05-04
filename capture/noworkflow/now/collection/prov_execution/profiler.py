@@ -147,9 +147,12 @@ class Profiler(ExecutionProvider):                                              
 
     def new_open(self, old_open, osopen=False):  # arquivo aqui
         """Wrap the open builtin function to register file access"""
+        print(self)
+        print(old_open)
+
         def open(name, *args, **kwargs):                                         # pylint: disable=redefined-builtin
             """Open file and add it to file_accesses"""
-            print("teste new_open")
+            print("teste open")
             print(name)
             if self.enabled:
                 # Create a file access object with default values
@@ -193,14 +196,17 @@ class Profiler(ExecutionProvider):                                              
         activation.file_accesses.append(file_access)
 
 
-    def new_database(self, old_open, osopen=False):
+    def new_execute(self, old_open, osopen=False):
         """Wrap the open builtin function to register file access"""
         print("teste new_database")
-        '''def open(name, *args, **kwargs):                                         # pylint: disable=redefined-builtin
+        print(self)
+
+        def execute(self, operation, params=(), multi=False):                                         # pylint: disable=redefined-builtin
             """Open file and add it to file_accesses"""
-            print("teste new_open")
-            print(name)
-            if self.enabled:
+            print("teste execute")
+            print(self)
+            print(operation)
+            '''if self.enabled:
                 # Create a file access object with default values
                 fid = self.file_accesses.add(name)
                 file_access = self.file_accesses[fid]
@@ -230,9 +236,9 @@ class Profiler(ExecutionProvider):                                              
                     file_access.mode = mode
 
                 self.add_file_access(file_access)
-            return old_open(name, *args, **kwargs)
+            return old_open(name, *args, **kwargs)'''
 
-        return open'''
+        return open
 
     def add_databse_access(self, file_access):
         """After activation that called database finish, add database_accesses to it"""

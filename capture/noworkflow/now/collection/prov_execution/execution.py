@@ -44,6 +44,9 @@ class Execution(object):
     @meta_profiler("execution")
     def collect_provenance(self):
         """Collect execution provenance"""
+        #talvez seja aqui
+        #primeiro ele captura todos os opens, provenance prospectiva
+        #depois ele captura o open em sim, provenance retrospectiva
         metascript = self.metascript
         self.set_provider()
 

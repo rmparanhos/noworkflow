@@ -17,6 +17,7 @@ def fibonacci(n):
 
 
 def plus():
+    print('sera_interrogacao')
     with open("data/number.dat") as file:
         n = int(file.read())
     print(n)
@@ -42,9 +43,8 @@ def plus():
     myresult = mycursor.fetchall()
 
     for x in myresult:
-        print(x)
+        print(x[0])
         
     return result
-
 
 plus()
