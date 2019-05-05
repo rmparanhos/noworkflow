@@ -96,7 +96,7 @@ class Trial(AlchemyProxy):
     file_accesses = many_viewonly_ref("trial", "FileAccess")
 
     #db
-    #db_accesses = many_viewonly_ref("trial", "DbAccess")
+    db_accesses = many_viewonly_ref("trial", "DbAccess")
 
     objects = many_viewonly_ref("trial", "Object")
     object_values = many_viewonly_ref("trial", "ObjectValue")

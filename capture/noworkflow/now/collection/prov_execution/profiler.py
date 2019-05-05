@@ -18,6 +18,7 @@ import mysql.connector
 
 from datetime import datetime
 
+from ...persistence.models.db_access import DbAccess
 from ...persistence import content
 from ...persistence.models import Activation, ObjectValue, FileAccess, Trial
 from ...utils.cross_version import builtins
@@ -487,6 +488,7 @@ class Profiler(ExecutionProvider):                                              
         Activation.fast_store(tid, self.activations, partial)
         ObjectValue.fast_store(tid, self.object_values, partial)
         FileAccess.fast_store(tid, self.file_accesses, partial)
+        DbAccess.fast_store(tid, self.db_accesses, partial)
 
     def tearup(self):
         """Activate profiler"""
