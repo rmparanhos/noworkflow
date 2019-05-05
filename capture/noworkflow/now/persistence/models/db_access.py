@@ -37,6 +37,10 @@ class DbAccess(AlchemyProxy):  # arquivo aquifile_access.py
     trial_id = Column(Integer, index=True)
     id = Column(Integer, index=True)                                             # pylint: disable=invalid-name
     name = Column(Text)
+
+    # db
+    host = Column(Text)
+
     mode = Column(Text)
     buffering = Column(Text)
     content_hash_before = Column(Text)
@@ -149,6 +153,7 @@ class DbAccess(AlchemyProxy):  # arquivo aquifile_access.py
         """
         result = """\
             Name: {f.name}
+            Host: {f.host}
             Mode: {f.mode}
             Buffering: {f.buffering}
             Content hash before: {f.content_hash_before}

@@ -436,7 +436,7 @@ class DbAccessLW(BaseLW):                                                      #
     """
 
     __slots__, attributes = define_attrs(
-        ["id", "name", "mode", "buffering", "timestamp", "trial_id",
+        ["id", "name", "host", "mode", "buffering", "timestamp", "trial_id",
          "content_hash_before", "content_hash_after",
          "function_activation_id"],
         ["done"]
@@ -447,6 +447,7 @@ class DbAccessLW(BaseLW):                                                      #
         self.trial_id = -1
         self.id = fid                                                            # pylint: disable=invalid-name
         self.name = name
+        self.host = 'temp'
         self.mode = "r"
         self.buffering = "default"
         self.content_hash_before = None

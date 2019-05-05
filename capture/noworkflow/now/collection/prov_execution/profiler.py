@@ -207,7 +207,6 @@ class Profiler(ExecutionProvider):                                              
         file_access.function_activation_id = activation.id
         activation.file_accesses.append(file_access)
 
-
     def new_connect(self, old_connect):  #
         """Wrap the connect function to register db access"""
         print('teste new_connect')
@@ -236,6 +235,8 @@ class Profiler(ExecutionProvider):                                              
                             fil.read()
                         )
                 '''
+                print(kwargs['host'])
+                db_access.host = kwargs['host']
                 # Update with the informed keyword arguments (mode / buffering)
                 db_access.update(kwargs)
                 # Update with the informed positional arguments
