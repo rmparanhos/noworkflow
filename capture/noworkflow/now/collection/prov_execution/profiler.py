@@ -83,9 +83,8 @@ class Profiler(ExecutionProvider):                                              
         codecs.open = self.new_open(codecs.open)
         os.open = self.new_open(os.open, osopen=True)
 
+        # db connect
         mysql.connector.connect = self.new_connect(mysql.connector.connect)
-
-
 
         # the number of user functions activated
         #   (starts with -1 to compensate the first call to the script itself)
@@ -99,6 +98,9 @@ class Profiler(ExecutionProvider):                                              
         self.activations = self.metascript.activations_store
         self.object_values = self.metascript.object_values_store
         self.file_accesses = self.metascript.file_accesses_store
+
+        # db provenance
+        self.db_accesses = self.metascript.db_accesses_store
 
         # Avoid using the same event for tracer and profiler
         self.last_event = None
@@ -160,9 +162,12 @@ class Profiler(ExecutionProvider):                                              
             """Open file and add it to file_accesses"""
             print("teste open")
             print(name)
+            print(self.enabled)
             if self.enabled:
                 # Create a file access object with default values
                 fid = self.file_accesses.add(name)
+                print('fid')
+                print(fid)
                 file_access = self.file_accesses[fid]
 
                 if os.path.exists(name):
@@ -202,33 +207,38 @@ class Profiler(ExecutionProvider):                                              
         activation.file_accesses.append(file_access)
 
 
-    def new_connect(self, old_connect):  # arquivo aqui
-        """Wrap the open builtin function to register file access"""
+    def new_connect(self, old_connect):  #
+        """Wrap the connect function to register db access"""
         print('teste new_connect')
         print(self)
         print('teste new_connect')
         print(old_connect)
         print('teste new_connect')
-        '''
-        def open(name, *args, **kwargs):                                         # pylint: disable=redefined-builtin
+
+        def connect(*args, **kwargs):                                         # pylint: disable=redefined-builtin
             """Open file and add it to file_accesses"""
-            print("teste open")
-            print(name)
+            print("teste connect")
+            print(args)
+            print(kwargs)
+            print(self.enabled)
             if self.enabled:
                 # Create a file access object with default values
-                fid = self.file_accesses.add(name)
-                file_access = self.file_accesses[fid]
+                dbid = self.db_accesses.add(kwargs['database'])
+                print(dbid)
+                db_access = self.db_accesses[dbid]
 
+                '''
                 if os.path.exists(name):
                     # Read previous content if file exists
                     with content.std_open(name, "rb") as fil:
                         file_access.content_hash_before = content.put(
                             fil.read()
                         )
-
+                '''
                 # Update with the informed keyword arguments (mode / buffering)
-                file_access.update(kwargs)
+                db_access.update(kwargs)
                 # Update with the informed positional arguments
+                '''
                 if len(args) > 1:
                     file_access.buffering = args[1]
                 elif len(args) > 0:
@@ -242,19 +252,18 @@ class Profiler(ExecutionProvider):                                              
                                 mode += value
 
                     file_access.mode = mode
+                '''
+                self.add_db_access(db_access)
+            return old_connect(*args, **kwargs)
 
-                self.add_file_access(file_access)
-            return old_open(name, *args, **kwargs)
+        return connect
 
-        return open'''
-
-    def add_db_access(self, file_access):  # arquivo aqui
+    def add_db_access(self, db_access):  # arquivo aqui
         """After activation that called open finish, add file_accesses to it"""
         print("teste add_db_access")
-        '''
         activation = self.current_activation
-        file_access.function_activation_id = activation.id
-        activation.file_accesses.append(file_access)'''
+        db_access.function_activation_id = activation.id
+        activation.db_accesses.append(db_access)
 
     def new_execute(self, old_execute):
         """Wrap the open builtin function to register file access"""

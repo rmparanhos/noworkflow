@@ -44,7 +44,7 @@ def plus():
 
     for x in myresult:
         print(x[0])
-        
+
     return result
 
 plus()

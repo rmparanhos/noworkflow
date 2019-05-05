@@ -91,6 +91,10 @@ class Show(NotebookCommand):
             print_msg("this trial accessed the following files:", True)
             print_trial_relationship(trial.file_accesses)
 
+        if args.file_accesses:
+            print_msg("this trial accessed the following database:", True)
+            print_trial_relationship(trial.db_accesses)
+
     def execute_export(self, args):
         persistence_config.connect_existing(args.dir or os.getcwd())
         Trial(trial_ref=args.trial)

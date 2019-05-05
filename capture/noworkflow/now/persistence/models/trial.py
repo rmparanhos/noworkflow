@@ -94,6 +94,10 @@ class Trial(AlchemyProxy):
     activations = many_ref("trial", "Activation",
                            order_by=Activation.m.start)
     file_accesses = many_viewonly_ref("trial", "FileAccess")
+
+    #db
+    #db_accesses = many_viewonly_ref("trial", "DbAccess")
+
     objects = many_viewonly_ref("trial", "Object")
     object_values = many_viewonly_ref("trial", "ObjectValue")
     variables = many_viewonly_ref("trial", "Variable")

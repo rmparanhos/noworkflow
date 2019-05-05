@@ -21,7 +21,7 @@ from .base import AlchemyProxy, proxy_class, backref_one, proxy
 
 
 @proxy_class
-class FileAccess(AlchemyProxy):  # arquivo aqui
+class FileAccess(AlchemyProxy):  # arquivo aquifile_access.py
     """Represent a file access"""
 
     hide_timestamp = False

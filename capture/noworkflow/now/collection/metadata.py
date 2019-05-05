@@ -20,7 +20,7 @@ from ..persistence.lightweight import DefinitionLW, ObjectLW
 from ..persistence.lightweight import EnvironmentAttrLW
 from ..persistence.lightweight import ModuleLW, DependencyLW
 from ..persistence.lightweight import ActivationLW, ObjectValueLW
-from ..persistence.lightweight import FileAccessLW, VariableLW
+from ..persistence.lightweight import FileAccessLW, VariableLW, DbAccessLW
 from ..persistence.lightweight import VariableUsageLW, VariableDependencyLW
 from ..utils import io
 
@@ -56,6 +56,9 @@ class Metascript(object):                                                       
         self.activations_store = ObjectStore(ActivationLW)
         self.object_values_store = ObjectStore(ObjectValueLW)
         self.file_accesses_store = ObjectStore(FileAccessLW)
+
+        # db
+        self.db_accesses_store = ObjectStore(DbAccessLW)
 
         self.variables_store = ObjectStore(VariableLW)
         self.variables_dependencies_store = ObjectStore(VariableDependencyLW)

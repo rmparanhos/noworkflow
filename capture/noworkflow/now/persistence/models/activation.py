@@ -50,6 +50,8 @@ class Activation(AlchemyProxy):
     object_values = many_viewonly_ref("activation", "ObjectValue")
     file_accesses = many_viewonly_ref("activation", "FileAccess")
 
+    #db_accesses = many_viewonly_ref("activation", "DbAccess")
+
     variables = many_ref("activation", "Variable")
     variables_usages = many_viewonly_ref("activation", "VariableUsage")
     source_variables = many_viewonly_ref(

@@ -316,6 +316,10 @@ class ActivationLW(BaseLW):                                                     
 
         # File accesses. Used to get the content after the activation
         self.file_accesses = []
+
+        # Db accesses. Used to get the content after the activation
+        self.db_accesses = []
+
         # Variable context. Used in the slicing lookup
         self.context = {}
 
@@ -425,6 +429,43 @@ class FileAccessLW(BaseLW):                                                     
     def __repr__(self):
         return ("FileAccess(id={}, name={}").format(self.id, self.name)
 
+
+class DbAccessLW(BaseLW):                                                      # pylint: disable=too-many-instance-attributes
+    """DbAccess lightweight object
+    There are type definitions on lightweight.pxd
+    """
+
+    __slots__, attributes = define_attrs(
+        ["id", "name", "mode", "buffering", "timestamp", "trial_id",
+         "content_hash_before", "content_hash_after",
+         "function_activation_id"],
+        ["done"]
+    )
+    special = {"function_activation_id"}
+
+    def __init__(self, fid, name):
+        self.trial_id = -1
+        self.id = fid                                                            # pylint: disable=invalid-name
+        self.name = name
+        self.mode = "r"
+        self.buffering = "default"
+        self.content_hash_before = None
+        self.content_hash_after = None
+        self.timestamp = datetime.now()
+        self.function_activation_id = -1
+        self.done = False
+
+    def update(self, variables):
+        """Update file access with dict"""
+        for key, value in viewitems(variables):
+            setattr(self, key, value)
+
+    def is_complete(self):
+        """DbAccess can be removed once it is tagged as done"""
+        return self.done
+
+    def __repr__(self):
+        return ("DbAccess(id={}, name={}").format(self.id, self.name)
 
 # Slicing
 
