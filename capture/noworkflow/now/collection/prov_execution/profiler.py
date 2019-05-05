@@ -14,6 +14,8 @@ import time
 import io
 import codecs
 
+import mysql.connector
+
 from datetime import datetime
 
 from ...persistence import content
@@ -80,6 +82,10 @@ class Profiler(ExecutionProvider):                                              
         io.open = self.new_open(io.open)
         codecs.open = self.new_open(codecs.open)
         os.open = self.new_open(os.open, osopen=True)
+
+        mysql.connector.connect = self.new_connect(mysql.connector.connect)
+
+
 
         # the number of user functions activated
         #   (starts with -1 to compensate the first call to the script itself)
@@ -196,7 +202,61 @@ class Profiler(ExecutionProvider):                                              
         activation.file_accesses.append(file_access)
 
 
-    def new_execute(self, old_open, osopen=False):
+    def new_connect(self, old_connect):  # arquivo aqui
+        """Wrap the open builtin function to register file access"""
+        print('teste new_connect')
+        print(self)
+        print('teste new_connect')
+        print(old_connect)
+        print('teste new_connect')
+        '''
+        def open(name, *args, **kwargs):                                         # pylint: disable=redefined-builtin
+            """Open file and add it to file_accesses"""
+            print("teste open")
+            print(name)
+            if self.enabled:
+                # Create a file access object with default values
+                fid = self.file_accesses.add(name)
+                file_access = self.file_accesses[fid]
+
+                if os.path.exists(name):
+                    # Read previous content if file exists
+                    with content.std_open(name, "rb") as fil:
+                        file_access.content_hash_before = content.put(
+                            fil.read()
+                        )
+
+                # Update with the informed keyword arguments (mode / buffering)
+                file_access.update(kwargs)
+                # Update with the informed positional arguments
+                if len(args) > 1:
+                    file_access.buffering = args[1]
+                elif len(args) > 0:
+                    mode = args[0]
+                    if osopen:
+                        mode = ""
+                        for key, value in MODES.items():
+                            flag = getattr(os, key, 0)
+                            if args[0] & flag:
+                                value = value or "({})".format(key)
+                                mode += value
+
+                    file_access.mode = mode
+
+                self.add_file_access(file_access)
+            return old_open(name, *args, **kwargs)
+
+        return open'''
+
+    def add_db_access(self, file_access):  # arquivo aqui
+        """After activation that called open finish, add file_accesses to it"""
+        print("teste add_db_access")
+        '''
+        activation = self.current_activation
+        file_access.function_activation_id = activation.id
+        activation.file_accesses.append(file_access)'''
+
+    def new_execute(self, old_execute):
         """Wrap the open builtin function to register file access"""
         print("teste new_database")
         print(self)
