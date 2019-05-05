@@ -40,6 +40,7 @@ class DbAccess(AlchemyProxy):  # arquivo aquifile_access.py
 
     # db
     host = Column(Text)
+    user = Column(Text)
 
     mode = Column(Text)
     buffering = Column(Text)
@@ -154,6 +155,7 @@ class DbAccess(AlchemyProxy):  # arquivo aquifile_access.py
         result = """\
             Name: {f.name}
             Host: {f.host}
+            User: {f.user}
             Mode: {f.mode}
             Buffering: {f.buffering}
             Content hash before: {f.content_hash_before}

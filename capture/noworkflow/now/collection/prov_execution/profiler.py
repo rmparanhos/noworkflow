@@ -235,8 +235,9 @@ class Profiler(ExecutionProvider):                                              
                             fil.read()
                         )
                 '''
-                print(kwargs['host'])
+
                 db_access.host = kwargs['host']
+                db_access.user = kwargs['user']
                 # Update with the informed keyword arguments (mode / buffering)
                 db_access.update(kwargs)
                 # Update with the informed positional arguments
