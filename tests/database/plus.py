@@ -27,7 +27,8 @@ def plus():
     print(result_fib)
     print(result_fact)
     print(result)
-
+    with open("data/result.dat", "a") as file:
+        file.write(result.__str__())
     print("------db--------") #pep 249 contem as diretrizes para api de conexao a db
     mydb = mysql.connector.connect(
         host="localhost",

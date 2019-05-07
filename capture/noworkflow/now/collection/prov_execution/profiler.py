@@ -6,7 +6,7 @@
 from __future__ import (absolute_import, print_function,
                         division, unicode_literals)
 
-
+import array
 import sys
 import os
 import traceback
@@ -15,6 +15,7 @@ import io
 import codecs
 
 import mysql.connector
+import hashlib
 
 from datetime import datetime
 
@@ -238,6 +239,24 @@ class Profiler(ExecutionProvider):                                              
 
                 db_access.host = kwargs['host']
                 db_access.user = kwargs['user']
+
+                mydb = content.std_connect(
+                    host=kwargs['host'],
+                    user=kwargs['user'],
+                    passwd=kwargs['passwd'],
+                    database=kwargs['database']
+                )
+
+                mycursor = mydb.cursor()
+                mycursor.execute("SELECT * FROM number")
+                myresult = mycursor.fetchall()
+
+                stringao = ""
+                for row in myresult:
+                    for col in row:
+                        stringao = stringao + col.__str__()
+                print(stringao)
+                db_access.content_hash_before = hashlib.sha1(bytes(stringao,'utf-8')).hexdigest()
                 # Update with the informed keyword arguments (mode / buffering)
                 db_access.update(kwargs)
                 # Update with the informed positional arguments
@@ -364,6 +383,8 @@ class Profiler(ExecutionProvider):                                              
                 with content.std_open(file_access.name, "rb") as fil:
                     file_access.content_hash_after = content.put(fil.read())
             file_access.done = True
+        for db_access in activation.db_accesses:
+            print(db_access)
         self.closed_activations += 1
         if (self.call_storage_frequency and
                 (self.closed_activations % self.call_storage_frequency == 0)):

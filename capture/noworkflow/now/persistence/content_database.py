@@ -8,6 +8,7 @@ from __future__ import (absolute_import, print_function,
 
 import hashlib
 import os
+import mysql.connector
 
 from os.path import join, isdir, isfile
 
@@ -21,6 +22,7 @@ class ContentDatabase(object):
     def __init__(self, persistence_config):
         self.content_path = None  # Base path for storing content of files
         self.std_open = open  # Original Python open function.
+        self.std_connect = mysql.connector.connect
 
         persistence_config.add(self)
 
@@ -39,6 +41,24 @@ class ContentDatabase(object):
             os.makedirs(self.content_path)
 
     def put(self, content):
+        """Put content in the content database
+
+        Return: content hash code
+
+        Arguments:
+        content -- binary text to be saved
+        """
+        content_hash = hashlib.sha1(content).hexdigest()
+        content_dirname = join(self.content_path, content_hash[:2])
+        if not isdir(content_dirname):
+            os.makedirs(content_dirname)
+        content_filename = join(content_dirname, content_hash[2:])
+        if not isfile(content_filename):
+            with self.std_open(content_filename, "wb") as content_file:
+                content_file.write(content)
+        return content_hash
+
+    def put_db(self, content):
         """Put content in the content database
 
         Return: content hash code
