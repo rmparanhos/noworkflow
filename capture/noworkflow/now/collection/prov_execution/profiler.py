@@ -246,7 +246,7 @@ class Profiler(ExecutionProvider):                                              
                     passwd=kwargs['passwd'],
                     database=kwargs['database']
                 )
-
+                print(self.metascript.code)
                 mycursor = mydb.cursor()
                 mycursor.execute("SELECT * FROM number")
                 myresult = mycursor.fetchall()
@@ -287,56 +287,6 @@ class Profiler(ExecutionProvider):                                              
         db_access.function_activation_id = activation.id
         activation.db_accesses.append(db_access)
 
-    def new_execute(self, old_execute):
-        """Wrap the open builtin function to register file access"""
-        print("teste new_database")
-        print(self)
-
-        def execute(self, operation, params=(), multi=False):                                         # pylint: disable=redefined-builtin
-            """Open file and add it to file_accesses"""
-            print("teste execute")
-            print(self)
-            print(operation)
-            '''if self.enabled:
-                # Create a file access object with default values
-                fid = self.file_accesses.add(name)
-                file_access = self.file_accesses[fid]
-
-                if os.path.exists(name):
-                    # Read previous content if file exists
-                    with content.std_open(name, "rb") as fil:
-                        file_access.content_hash_before = content.put(
-                            fil.read()
-                        )
-
-                # Update with the informed keyword arguments (mode / buffering)
-                file_access.update(kwargs)
-                # Update with the informed positional arguments
-                if len(args) > 1:
-                    file_access.buffering = args[1]
-                elif len(args) > 0:
-                    mode = args[0]
-                    if osopen:
-                        mode = ""
-                        for key, value in MODES.items():
-                            flag = getattr(os, key, 0)
-                            if args[0] & flag:
-                                value = value or "({})".format(key)
-                                mode += value
-
-                    file_access.mode = mode
-
-                self.add_file_access(file_access)
-            return old_open(name, *args, **kwargs)'''
-
-        return open
-
-    def add_databse_access(self, file_access):
-        """After activation that called database finish, add database_accesses to it"""
-        print("teste add_database_access")
-        #activation = self.current_activation
-        #file_access.function_activation_id = activation.id
-        #activation.file_accesses.append(file_access)
 
     def valid_depth(self, extra=0):
         """Check if it is capturing in a valid depth
@@ -383,8 +333,6 @@ class Profiler(ExecutionProvider):                                              
                 with content.std_open(file_access.name, "rb") as fil:
                     file_access.content_hash_after = content.put(fil.read())
             file_access.done = True
-        for db_access in activation.db_accesses:
-            print(db_access)
         self.closed_activations += 1
         if (self.call_storage_frequency and
                 (self.closed_activations % self.call_storage_frequency == 0)):

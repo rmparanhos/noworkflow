@@ -53,7 +53,7 @@ class Execution(object):
         # primeiro ele captura todos os opens, provenance prospectiva
         # depois ele captura o open em si, provenance retrospectiva]
 
-        metascript = self.metascript # essa variavel contem o script q será exec
+        metascript = self.metascript  # essa variavel contem o script q será exec
         print(metascript.code)
         self.set_provider()
         print(metascript.compiled is None)
