@@ -252,7 +252,7 @@ class Profiler(ExecutionProvider):                                              
                 while True:
                     print(i)
                     indice_ini = self.metascript.code.upper().find('SELECT', i)
-                    indice_fim = self.metascript.code.upper().find(')', indice_ini + 6) # isso aqui vai dar caô se o dml tiver )
+                    indice_fim = self.metascript.code.upper().find(')', indice_ini + 6) # isso aqui vai dar caô se o dml tiver parenteses
                     if indice_ini < 0:
                         break
                     else:
