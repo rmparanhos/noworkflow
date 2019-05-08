@@ -246,18 +246,48 @@ class Profiler(ExecutionProvider):                                              
                     passwd=kwargs['passwd'],
                     database=kwargs['database']
                 )
-                print(self.metascript.code)
-                mycursor = mydb.cursor()
-                mycursor.execute("SELECT * FROM number")
-                myresult = mycursor.fetchall()
+                #encontra as poscioes dos comandos dml
+                indices_dml = []
+                i = 0
+                while True:
+                    print(i)
+                    indice_ini = self.metascript.code.upper().find('SELECT', i)
+                    indice_fim = self.metascript.code.upper().find(')', indice_ini + 6)
+                    if indice_ini < 0:
+                        break
+                    else:
+                        indices_dml.append((indice_ini, indice_fim - 1))
+                    i = indice_ini + 1
 
-                stringao = ""
-                for row in myresult:
-                    for col in row:
-                        stringao = stringao + col.__str__()
-                print(stringao)
-                db_access.content_hash_before = hashlib.sha1(bytes(stringao,'utf-8')).hexdigest()
+                print(indices_dml)
+
+                # usa os indices para encontrar os comandos
+                dmls = []
+                for indice in indices_dml:
+                    dmls.append(self.metascript.code[indice[0]:indice[1]])
+                print(dmls)
+
+                mycursor = mydb.cursor()
+                db_access.dml = []
+                #calcula as hashs de cada tabela
+                for comando in dmls:
+                    indice_from = comando.upper().split().index("FROM")
+                    tabela = comando.split()[indice_from + 1]
+                    select = "SELECT * FROM " + tabela
+                    print(select)
+                    mycursor.execute(select)
+                    myresult = mycursor.fetchall()
+
+                    stringao = ""
+                    for row in myresult:
+                        for col in row:
+                            stringao = stringao + col.__str__()
+                    print(stringao)
+                    print(hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest())
+
+                    db_access.dml.append((tabela, comando, hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest()))
                 # Update with the informed keyword arguments (mode / buffering)
+                db_access.dml = db_access.dml.__str__()
                 db_access.update(kwargs)
                 # Update with the informed positional arguments
                 '''

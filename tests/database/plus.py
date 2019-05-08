@@ -46,6 +46,13 @@ def plus():
     for x in myresult:
         print(x[0])
 
+    mycursor.execute("SELECT * FROM letter")
+
+    myresult = mycursor.fetchall()
+
+    for x in myresult:
+        print(x[0])
+
     return result
 
 plus()
