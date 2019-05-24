@@ -271,11 +271,41 @@ class Profiler(ExecutionProvider):                                              
                 db_access.dml = []
                 #calcula as hashs de cada tabela
                 for comando in dmls:
+
                     indice_from = comando.upper().split().index("FROM")
-                    tabela = comando.split()[indice_from + 1]
-                    select = "SELECT * FROM " + tabela
-                    print(select)
-                    mycursor.execute(select)
+                    indice_join = 0
+                    indices_join = []
+                    print(comando)
+                    while True:
+                        try:
+                            #TODO loop para capturar varios joins
+                        except ValueError:
+                            print("sem join")
+                            break
+
+                    tabelas = []
+                    hash_tabelas = []
+                    tabelas.append(comando.split()[indice_from + 1])
+                    if len(indices_join) > 0:
+                        for item in indices_join:
+                            tabelas.append(comando.split()[item + 1])
+
+                    print(tabelas)
+                    for tabela in tabelas:
+                        select = "SELECT * FROM " + tabela
+                        print(select)
+                        mycursor.execute(select)
+                        myresult = mycursor.fetchall()
+
+                        stringao = ""
+                        for row in myresult:
+                            for col in row:
+                                stringao = stringao + col.__str__()
+                        print(stringao)
+                        print(hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest())
+                        hash_tabelas.append(hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest())
+
+                    mycursor.execute(comando)
                     myresult = mycursor.fetchall()
 
                     stringao = ""
@@ -284,8 +314,10 @@ class Profiler(ExecutionProvider):                                              
                             stringao = stringao + col.__str__()
                     print(stringao)
                     print(hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest())
+                    hash_comando = hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest()
 
-                    db_access.dml.append((tabela, comando, hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest()))
+                    db_access.dml.append((tabelas, hash_tabelas, comando, hash_comando))
+
                 # Update with the informed keyword arguments (mode / buffering)
                 db_access.dml = db_access.dml.__str__()
                 db_access.update(kwargs)
