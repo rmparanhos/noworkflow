@@ -273,16 +273,8 @@ class Profiler(ExecutionProvider):                                              
                 for comando in dmls:
 
                     indice_from = comando.upper().split().index("FROM")
-                    indice_join = 0
-                    indices_join = []
-                    print(comando)
-                    while True:
-                        try:
-                            #TODO loop para capturar varios joins
-                        except ValueError:
-                            print("sem join")
-                            break
-
+                    indices_join = [i for i, x in enumerate(comando.upper().split()) if x == "JOIN"]
+                    print(indices_join)
                     tabelas = []
                     hash_tabelas = []
                     tabelas.append(comando.split()[indice_from + 1])
