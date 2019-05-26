@@ -1,0 +1,248 @@
+teste
+digraph dependency {
+    rankdir=RL;
+    node[fontsize=True]
+    subgraph cluster_2  {
+        color="#3A85B9";
+        fontsize=True;
+        label = "plus";
+        v_2_214 [label="72 return" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_12 [label="20 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_16 [label="21 open" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_17 [label="21 file" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_22 [label="22 TextIOWrapper.read" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_24 [label="22 int(file.read())" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_23 [label="22 n" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_29 [label="23 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        subgraph cluster_7  {
+            color="#3A85B9";
+            fontsize=True;
+            label = "fibonacci";
+            v_7_64 [label="16 return" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+            v_7_30 [label="13 n" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+            subgraph cluster_8  {
+                color="#3A85B9";
+                fontsize=True;
+                label = "fibonacci";
+                v_8_50 [label="16 return" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                v_8_32 [label="13 n" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                subgraph cluster_9  {
+                    color="#3A85B9";
+                    fontsize=True;
+                    label = "fibonacci";
+                    v_9_44 [label="16 return" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                    v_9_34 [label="13 n" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                    subgraph cluster_10  {
+                        color="#3A85B9";
+                        fontsize=True;
+                        label = "fibonacci";
+                        v_10_38 [label="15 return" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                        v_10_36 [label="13 n" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                    }
+                    subgraph cluster_11  {
+                        color="#3A85B9";
+                        fontsize=True;
+                        label = "fibonacci";
+                        v_11_42 [label="15 return" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                        v_11_40 [label="13 n" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                    }
+                }
+                subgraph cluster_12  {
+                    color="#3A85B9";
+                    fontsize=True;
+                    label = "fibonacci";
+                    v_12_48 [label="15 return" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                    v_12_46 [label="13 n" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                }
+            }
+            subgraph cluster_13  {
+                color="#3A85B9";
+                fontsize=True;
+                label = "fibonacci";
+                v_13_62 [label="16 return" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                v_13_52 [label="13 n" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                subgraph cluster_14  {
+                    color="#3A85B9";
+                    fontsize=True;
+                    label = "fibonacci";
+                    v_14_56 [label="15 return" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                    v_14_54 [label="13 n" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                }
+                subgraph cluster_15  {
+                    color="#3A85B9";
+                    fontsize=True;
+                    label = "fibonacci";
+                    v_15_60 [label="15 return" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                    v_15_58 [label="13 n" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+                }
+            }
+        }
+        v_2_66 [label="24 result_fib" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        subgraph cluster_16  {
+            color="#3A85B9";
+            fontsize=True;
+            label = "factorial";
+            v_16_77 [label="10 return" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+            v_16_67 [label="4 n" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        }
+        v_2_79 [label="25 result_fact" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_83 [label="27 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_86 [label="28 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_89 [label="29 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_80 [label="26 result" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_92 [label="30 open" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_93 [label="30 file" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_96 [label="31 result.__str__()" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_99 [label="31 TextIOWrapper.write" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_100 [label="31 result.__str__()" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_104 [label="32 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_106 [label="38 mysql.connector.connect( ...    database=\"plus\"
+    )" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_105 [label="33 mydb" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_110 [label="37 connect" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_113 [label="40 cursor" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_114 [label="40 mycursor" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_117 [label="42 execute" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_120 [label="44 fetchall" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_121 [label="44 myresult" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_124 [label="47 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_128 [label="49 execute" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_131 [label="50 fetchall" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_132 [label="50 myresult" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_136 [label="53 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_125 [label="46 x" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_141 [label="53 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_137 [label="52 x" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_145 [label="55 execute" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_148 [label="56 fetchall" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_149 [label="56 myresult" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_153 [label="59 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_142 [label="52 x" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_158 [label="59 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_154 [label="58 x" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_163 [label="59 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_159 [label="58 x" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_168 [label="59 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_164 [label="58 x" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_172 [label="61 execute" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_175 [label="62 fetchall" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_176 [label="62 myresult" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_180 [label="65 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_169 [label="58 x" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_185 [label="65 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_181 [label="64 x" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_189 [label="66 execute" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_192 [label="67 fetchall" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_193 [label="67 myresult" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_197 [label="70 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_186 [label="64 x" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_202 [label="70 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_198 [label="69 x" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_207 [label="70 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_203 [label="69 x" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+        v_2_212 [label="70 module.print" fillcolor="#3A85B9" fontcolor="white" shape="box" style="filled"];
+        v_2_208 [label="69 x" fillcolor="#85CBD0" fontcolor="black" shape="box" style="rounded,filled"];
+    }
+    a_2 [label="data/number.dat" fillcolor="white" fontcolor="black" shape="box" style="rounded,filled"];
+    a_3 [label="data/result.dat" fillcolor="white" fontcolor="black" shape="box" style="rounded,filled"];
+    v_2_145 -> v_2_114 [style="dashed"];
+    v_16_77 -> v_16_67 [style="dashed"];
+    v_15_58 -> v_13_52 [style=""];
+    v_2_24 -> v_2_22 [style="dashed"];
+    v_2_79 -> v_16_77 [style=""];
+    v_8_32 -> v_7_30 [style=""];
+    v_2_168 -> v_2_164 [style="dashed"];
+    v_2_189 -> v_2_114 [style="dashed"];
+    v_7_30 -> v_2_23 [style=""];
+    v_2_180 -> v_2_169 [style="dashed"];
+    v_2_80 -> v_2_79 [style=""];
+    v_8_50 -> v_8_32 [style=""];
+    v_2_163 -> v_2_159 [style="dashed"];
+    v_11_42 -> v_11_40 [style=""];
+    v_10_36 -> v_9_34 [style=""];
+    v_2_83 -> v_2_66 [style="dashed"];
+    v_16_67 -> v_2_23 [style=""];
+    v_2_148 -> v_2_114 [style="dashed"];
+    v_2_148 -> v_2_105 [style="dashed"];
+    v_2_145 -> v_2_105 [style="dashed"];
+    v_2_164 -> v_2_149 [style=""];
+    v_13_62 -> v_15_60 [style=""];
+    v_2_202 -> v_2_198 [style="dashed"];
+    v_2_172 -> v_2_114 [style="dashed"];
+    v_9_34 -> v_8_32 [style=""];
+    v_2_176 -> v_2_175 [style=""];
+    v_2_158 -> v_2_154 [style="dashed"];
+    v_8_50 -> v_9_44 [style=""];
+    v_2_153 -> v_2_142 [style="dashed"];
+    v_2_172 -> v_2_105 [style="dashed"];
+    v_14_54 -> v_13_52 [style=""];
+    v_2_132 -> v_2_131 [style=""];
+    v_2_154 -> v_2_149 [style=""];
+    v_2_66 -> v_7_64 [style=""];
+    v_2_193 -> v_2_192 [style=""];
+    v_2_185 -> v_2_181 [style="dashed"];
+    v_10_38 -> v_10_36 [style=""];
+    v_2_99 -> v_2_96 [style="dashed"];
+    v_2_105 -> v_2_106 [style=""];
+    v_2_131 -> v_2_105 [style="dashed"];
+    v_2_207 -> v_2_203 [style="dashed"];
+    v_2_214 -> v_2_80 [style=""];
+    v_2_203 -> v_2_193 [style=""];
+    v_2_93 -> v_2_92 [style=""];
+    v_2_100 -> v_2_80 [style="dashed"];
+    v_2_175 -> v_2_105 [style="dashed"];
+    v_2_99 -> v_2_93 [style="dashed"];
+    v_2_17 -> v_2_16 [style=""];
+    v_9_44 -> v_10_38 [style=""];
+    v_2_181 -> v_2_176 [style=""];
+    v_8_50 -> v_12_48 [style=""];
+    v_2_29 -> v_2_23 [style="dashed"];
+    v_7_64 -> v_13_62 [style=""];
+    v_11_40 -> v_9_34 [style=""];
+    v_15_60 -> v_15_58 [style=""];
+    v_2_125 -> v_2_121 [style=""];
+    a_3 -> v_2_92 [style="dashed"];
+    v_9_44 -> v_9_34 [style=""];
+    v_2_208 -> v_2_193 [style=""];
+    v_13_62 -> v_13_52 [style=""];
+    v_2_120 -> v_2_105 [style="dashed"];
+    v_2_86 -> v_2_79 [style="dashed"];
+    v_7_64 -> v_7_30 [style=""];
+    v_2_16 -> a_2 [style="dashed"];
+    v_2_117 -> v_2_105 [style="dashed"];
+    v_2_142 -> v_2_132 [style=""];
+    v_13_62 -> v_14_56 [style=""];
+    v_12_48 -> v_12_46 [style=""];
+    v_2_22 -> v_2_17 [style="dashed"];
+    v_2_128 -> v_2_114 [style="dashed"];
+    v_2_114 -> v_2_113 [style=""];
+    v_2_141 -> v_2_137 [style="dashed"];
+    v_2_198 -> v_2_193 [style=""];
+    v_13_52 -> v_7_30 [style=""];
+    v_2_117 -> v_2_114 [style="dashed"];
+    v_2_120 -> v_2_114 [style="dashed"];
+    v_2_128 -> v_2_105 [style="dashed"];
+    v_2_159 -> v_2_149 [style=""];
+    v_2_189 -> v_2_105 [style="dashed"];
+    v_2_131 -> v_2_114 [style="dashed"];
+    v_2_197 -> v_2_186 [style="dashed"];
+    v_2_113 -> v_2_105 [style="dashed"];
+    v_2_192 -> v_2_105 [style="dashed"];
+    v_2_80 -> v_2_66 [style=""];
+    v_2_175 -> v_2_114 [style="dashed"];
+    v_2_137 -> v_2_132 [style=""];
+    v_2_96 -> v_2_80 [style="dashed"];
+    v_9_44 -> v_11_42 [style=""];
+    v_14_56 -> v_14_54 [style=""];
+    v_2_212 -> v_2_208 [style="dashed"];
+    v_2_186 -> v_2_176 [style=""];
+    v_12_46 -> v_8_32 [style=""];
+    v_2_121 -> v_2_120 [style=""];
+    v_2_89 -> v_2_80 [style="dashed"];
+    v_2_169 -> v_2_149 [style=""];
+    v_2_192 -> v_2_114 [style="dashed"];
+    v_2_149 -> v_2_148 [style=""];
+    v_2_136 -> v_2_125 [style="dashed"];
+    v_7_64 -> v_8_50 [style=""];
+    v_2_23 -> v_2_24 [style=""];
+}
