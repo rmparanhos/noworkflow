@@ -56,6 +56,8 @@ class Show(NotebookCommand):
                 help="shows function activations")
         add_arg("-f", "--file-accesses", action="store_true",
                 help="shows read/write access to files")
+        add_arg("-db", "--database-accesses", action="store_true",
+                help="shows read operations in a database")
         add_arg("--dir", type=str,
                 help="set project path where is the database. Default to "
                      "current directory")
@@ -91,7 +93,7 @@ class Show(NotebookCommand):
             print_msg("this trial accessed the following files:", True)
             print_trial_relationship(trial.file_accesses)
 
-        if args.file_accesses:
+        if args.database_accesses:
             print_msg("this trial accessed the following database:", True)
             print_trial_relationship(trial.db_accesses)
 

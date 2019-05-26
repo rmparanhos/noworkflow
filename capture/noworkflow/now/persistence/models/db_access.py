@@ -7,6 +7,7 @@ from __future__ import (absolute_import, print_function,
                         division, unicode_literals)
 
 import os
+import ast
 
 from sqlalchemy import Column, Integer, Text, TIMESTAMP
 from sqlalchemy import PrimaryKeyConstraint, ForeignKeyConstraint
@@ -43,10 +44,6 @@ class DbAccess(AlchemyProxy):  # arquivo aquifile_access.py
     user = Column(Text)
     dml = Column(Text)
 
-    mode = Column(Text)
-    buffering = Column(Text)
-    content_hash_before = Column(Text)
-    content_hash_after = Column(Text)
     timestamp = Column(TIMESTAMP)
     function_activation_id = Column(Integer, index=True)
 
@@ -65,13 +62,11 @@ class DbAccess(AlchemyProxy):  # arquivo aquifile_access.py
                        link="activation.id"),
     ), description=(
         "informs that in a given trial (*trial_id*),\n"
-        "a file *name*\n"
+        "a database *name*\n"
+        "in a host *host*\n"
         "was accessed by a function activation (*activation_id*)\n"
-        "in a specific read or write *mode*\n"
+        "and used this dml *dml*\n"
         "at a specific *timestamp*.\n"
-        "The content of the file\n"
-        "was captured before (*content_hash_before*)\n"
-        "and after (*content_hash_after*) the access."
     ))
 
     @property
@@ -157,12 +152,20 @@ class DbAccess(AlchemyProxy):  # arquivo aquifile_access.py
             Name: {f.name}
             Host: {f.host}
             User: {f.user}
-            DML: {f.dml}
-            Mode: {f.mode}
-            Buffering: {f.buffering}
-            Content hash before: {f.content_hash_before}
-            Content hash after: {f.content_hash_after}
             """
+        dmls = ast.literal_eval(self.dml)
+        cont = 0
+        for item in dmls:
+            cont += 1
+            if cont == 1:
+                result += "DML {}: \n".format(cont)
+            else:
+                result += "\tDML {}: \n".format(cont)
+            result += "\t\t\tTable: {} \n".format(item[0])
+            result += "\t\t\tHash Table: {} \n".format(item[1])
+            result += "\t\t\tQuery: {} \n".format(item[2])
+            result += "\t\t\tHash Query: {} \n\t".format(item[3])
+
         if not self.hide_timestamp:
             result += """Timestamp: {f.timestamp}
             """
