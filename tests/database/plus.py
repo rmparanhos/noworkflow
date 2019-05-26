@@ -63,6 +63,11 @@ def plus():
 
     for x in myresult:
         print(x[0])
+    mycursor.execute("SELECT * FROM number_letter WHERE n IN (SELECT n FROM number)")
+    myresult = mycursor.fetchall()
+
+    for x in myresult:
+        print(x[0])
 
     return result
 

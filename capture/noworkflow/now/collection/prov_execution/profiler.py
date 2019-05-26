@@ -249,14 +249,23 @@ class Profiler(ExecutionProvider):                                              
                 #encontra as poscioes dos comandos dml
                 indices_dml = []
                 i = 0
+                print("encontra as poscioes dos comandos dml")
                 while True:
-                    print(i)
-                    indice_ini = self.metascript.code.upper().find('SELECT', i)
-                    indice_fim = self.metascript.code.upper().find(')', indice_ini + 6) # isso aqui vai dar caô se o dml tiver parenteses
+                    indice_ini = self.metascript.code.upper().find('EXECUTE(', i)
                     if indice_ini < 0:
                         break
-                    else:
-                        indices_dml.append((indice_ini, indice_fim - 1))
+                    indice_ini = indice_ini + 9
+                    print(indice_ini)
+                    offset = 6 + 9
+                    while True:
+                        indice_fim = self.metascript.code.upper().find('\"', indice_ini + offset) # isso aqui vai dar caô se o dml tiver parenteses
+                        if self.metascript.code.upper()[indice_fim + 1] == ")":
+                            break
+                        else:
+                            offset = offset + indice_fim
+                    print(indice_fim)
+
+                    indices_dml.append((indice_ini, indice_fim))
                     i = indice_ini + 1
 
                 print(indices_dml)
@@ -272,12 +281,16 @@ class Profiler(ExecutionProvider):                                              
                 #calcula as hashs de cada tabela
                 for comando in dmls:
 
-                    indice_from = comando.upper().split().index("FROM")
+                    indices_from = [i for i, x in enumerate(comando.upper().split()) if x == "FROM"]
                     indices_join = [i for i, x in enumerate(comando.upper().split()) if x == "JOIN"]
-                    print(indices_join)
                     tabelas = []
                     hash_tabelas = []
-                    tabelas.append(comando.split()[indice_from + 1])
+                    if len(indices_from) > 0:
+                        for item in indices_from:
+                            tabela = comando.split()[item + 1]
+                            if tabela.find(")") > -1:
+                                tabela = tabela[:-1]
+                            tabelas.append(tabela)
                     if len(indices_join) > 0:
                         for item in indices_join:
                             tabelas.append(comando.split()[item + 1])
@@ -285,7 +298,6 @@ class Profiler(ExecutionProvider):                                              
                     print(tabelas)
                     for tabela in tabelas:
                         select = "SELECT * FROM " + tabela
-                        print(select)
                         mycursor.execute(select)
                         myresult = mycursor.fetchall()
 
@@ -293,8 +305,6 @@ class Profiler(ExecutionProvider):                                              
                         for row in myresult:
                             for col in row:
                                 stringao = stringao + col.__str__()
-                        print(stringao)
-                        print(hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest())
                         hash_tabelas.append(hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest())
 
                     mycursor.execute(comando)
@@ -304,8 +314,6 @@ class Profiler(ExecutionProvider):                                              
                     for row in myresult:
                         for col in row:
                             stringao = stringao + col.__str__()
-                    print(stringao)
-                    print(hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest())
                     hash_comando = hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest()
 
                     db_access.dml.append((tabelas, hash_tabelas, comando, hash_comando))
