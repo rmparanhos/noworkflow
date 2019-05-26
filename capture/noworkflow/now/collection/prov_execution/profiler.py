@@ -319,7 +319,11 @@ class Profiler(ExecutionProvider):                                              
                     db_access.dml.append((tabelas, hash_tabelas, comando, hash_comando))
 
                 # Update with the informed keyword arguments (mode / buffering)
+
                 db_access.dml = db_access.dml.__str__()
+                print('content_hash')
+                print(hashlib.sha1(bytes(db_access.dml.__str__(), 'utf-8')).hexdigest())
+                db_access.content_hash = hashlib.sha1(bytes(db_access.dml.__str__(), 'utf-8')).hexdigest()
                 db_access.update(kwargs)
                 # Update with the informed positional arguments
                 '''

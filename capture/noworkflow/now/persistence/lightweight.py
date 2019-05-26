@@ -437,7 +437,7 @@ class DbAccessLW(BaseLW):                                                      #
 
     __slots__, attributes = define_attrs(
         ["id", "name", "host", "user", "dml", "mode", "buffering", "timestamp", "trial_id",
-         "content_hash_before", "content_hash_after",
+         "content_hash", "content_hash_after",
          "function_activation_id"],
         ["done"]
     )

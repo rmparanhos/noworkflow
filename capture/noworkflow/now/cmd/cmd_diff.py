@@ -103,6 +103,8 @@ class Diff(NotebookCommand):
                 help="compare environment conditions")
         add_arg("-f", "--file-accesses", action="store_true",
                 help="compare read/write access to files")
+        add_arg("-db", "--database-accesses", action="store_true",
+                help="compare read operations in a database")
         add_arg("-t", "--hide-timestamps", action="store_true",
                 help="hide timestamps")
         add_arg("--brief", action="store_true",
@@ -165,6 +167,33 @@ class Diff(NotebookCommand):
                     len(replaced)), True)
                 print_replaced_environment(replaced)
             print()
+
+        if args.database_accesses:
+            (added, removed, replaced) = diff.db_accesses
+            if args.brief:
+                print_msg("Brief database access diff", True)
+                print_brief(added, removed, replaced)
+            else:
+                if args.hide_timestamps:
+                    hide_timestamp(added)
+                    hide_timestamp(removed)
+                print_msg("{} database accesses added:".format(
+                    len(added)), True)
+                print_trial_relationship(added)
+                print()
+
+                print_msg("{} database accesses removed:".format(
+                    len(removed)), True)
+                print_trial_relationship(removed)
+                print()
+
+                print_msg("{} database accesses replaced:".format(
+                    len(replaced)), True)
+                print_replaced_attributes(
+                    replaced,
+                    extra=access_extra,
+                    ignore=("id", "trial_id", "function_activation_id"),
+                    names={"stack": "Function"})
 
         if args.file_accesses:
             (added, removed, replaced) = diff.file_accesses

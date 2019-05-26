@@ -92,6 +92,14 @@ class Diff(Model):
             set(self.trial2.file_accesses),
             create_replaced=False)
 
+    @property
+    def db_accesses(self):
+        """Diff db accesses"""
+        return diff_set(
+            set(self.trial1.db_accesses),
+            set(self.trial2.db_accesses),
+            create_replaced=False)
+
     def _ipython_display_(self):
         """Display history graph"""
         if hasattr(self, "graph"):

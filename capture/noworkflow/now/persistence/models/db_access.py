@@ -38,7 +38,7 @@ class DbAccess(AlchemyProxy):  # arquivo aquifile_access.py
     trial_id = Column(Integer, index=True)
     id = Column(Integer, index=True)                                             # pylint: disable=invalid-name
     name = Column(Text)
-
+    content_hash = Column(Text)
     # db
     host = Column(Text)
     user = Column(Text)
@@ -128,8 +128,7 @@ class DbAccess(AlchemyProxy):  # arquivo aquifile_access.py
         return proxy(query.first())
 
     def __key(self):
-        return (self.name, self.content_hash_before, self.content_hash_after,
-                self.mode)
+        return (self.name, self.host, self.content_hash)
 
     def __hash__(self):
         return hash(self.__key())
@@ -138,8 +137,7 @@ class DbAccess(AlchemyProxy):  # arquivo aquifile_access.py
         if not isinstance(other, DbAccess):
             return False
         return (
-            (self.content_hash_before == other.content_hash_before)
-            and (self.content_hash_after == other.content_hash_after)
+            (self.content_hash == other.content_hash)
         )
 
     def show(self, _print=print):
@@ -152,6 +150,7 @@ class DbAccess(AlchemyProxy):  # arquivo aquifile_access.py
             Name: {f.name}
             Host: {f.host}
             User: {f.user}
+            DML Hash: {f.content_hash}
             """
         dmls = ast.literal_eval(self.dml)
         cont = 0
