@@ -5,3 +5,16 @@ C:\Users\raffa\Desktop\Trabalhos 10 Periodo\E-Science\Trabalho noWorkflow\nowork
 Para rodar o codigo
 
 C:\Users\raffa\Desktop\Trabalhos 10 Periodo\E-Science\Trabalho noWorkflow\noworkflow\tests\database>now run -v plus.py
+
+Para mostrar a proveniencia
+
+C:\Users\raffa\Desktop\Trabalhos 10 Periodo\E-Science\Trabalho noWorkflow\noworkflow\tests\database>now show 1 -db
+
+Para fazer o diff
+
+C:\Users\raffa\Desktop\Trabalhos 10 Periodo\E-Science\Trabalho noWorkflow\noworkflow\tests\database>now diff 1 2 -db
+
+Para rodar o web
+
+C:\Users\raffa\Desktop\Trabalhos 10 Periodo\E-Science\Trabalho noWorkflow\noworkflow\tests\database>now vis -b
+
