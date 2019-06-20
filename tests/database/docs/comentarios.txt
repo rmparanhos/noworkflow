@@ -1,0 +1,23 @@
+
+    mycursor.execute("SELECT * FROM letter")
+    myresult = mycursor.fetchall()
+
+    for x in myresult:
+        print(x[0])
+
+    mycursor.execute("SELECT * FROM number JOIN number_letter ON number.n = number_letter.n")
+    myresult = mycursor.fetchall()
+
+    for x in myresult:
+        print(x[0])
+
+    mycursor.execute("SELECT * FROM number JOIN number_letter ON number.n = number_letter.n INNER JOIN letter on number_letter.c = letter.c")
+    myresult = mycursor.fetchall()
+
+    for x in myresult:
+        print(x[0])
+    mycursor.execute("SELECT * FROM number_letter WHERE n IN (SELECT n FROM number)")
+    myresult = mycursor.fetchall()
+
+    for x in myresult:
+        print(x[0])
