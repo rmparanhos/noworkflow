@@ -17,7 +17,6 @@ def fibonacci(n):
 
 
 def plus():
-    print('sera_interrogacao')
     with open("data/number.dat") as file:
         n = int(file.read())
     print(n)
@@ -39,39 +38,17 @@ def plus():
 
     mycursor = mydb.cursor()
 
-    mycursor.execute("SELECT * FROM number WHERE n > 4")
-
-    myresult = mycursor.fetchall()
-
-    for x in myresult:
-        print(x[0])
-
     mycursor.execute("SELECT * FROM letter")
+
     myresult = mycursor.fetchall()
 
     for x in myresult:
         print(x[0])
 
-    mycursor.execute("SELECT * FROM number JOIN number_letter ON number.n = number_letter.n")
-    myresult = mycursor.fetchall()
+    mycursor.execute("INSERT INTO letter VALUES('R')")
 
-    for x in myresult:
-        print(x[0])
-
-    mycursor.execute("SELECT * FROM number JOIN number_letter ON number.n = number_letter.n INNER JOIN letter on number_letter.c = letter.c")
-    myresult = mycursor.fetchall()
-
-    for x in myresult:
-        print(x[0])
-    mycursor.execute("SELECT * FROM number_letter WHERE n IN (SELECT n FROM number)")
-    myresult = mycursor.fetchall()
-
-    for x in myresult:
-        print(x[0])
-
+    mydb.commit()
     return result
 
 
 plus()
-
-

@@ -33,13 +33,10 @@ class Execution(object):
 
     def set_provider(self):
         """Set execution provenance provider"""
-        print('test set_provider')
         metascript = self.metascript
         glob = globals()
         provider_cls = glob.get(metascript.execution_provenance, Profiler)
         self.provider = provider_cls(metascript)
-        print('hm')
-        print(self.provider)
 
     # ToDo #76: Processor load. Should be collected from time to time
     #                         (there are static and dynamic metadata)
@@ -47,16 +44,12 @@ class Execution(object):
     @meta_profiler("execution")
     def collect_provenance(self):
         """Collect execution provenance"""
-        print('test collect_provenance')
-
         # talvez seja aqui
         # primeiro ele captura todos os opens, provenance prospectiva
         # depois ele captura o open em si, provenance retrospectiva]
 
         metascript = self.metascript  # essa variavel contem o script q será exec
-        print(metascript.code)
         self.set_provider()
-        print(metascript.compiled is None)
         if metascript.compiled is None:
             metascript.compiled = cross_compile(
                 metascript.code, metascript.path, "exec"

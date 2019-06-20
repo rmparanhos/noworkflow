@@ -157,19 +157,12 @@ class Profiler(ExecutionProvider):                                              
 
     def new_open(self, old_open, osopen=False):  # arquivo aqui
         """Wrap the open builtin function to register file access"""
-        print(self)
-        print(old_open)
 
         def open(name, *args, **kwargs):                                         # pylint: disable=redefined-builtin
             """Open file and add it to file_accesses"""
-            print("teste open")
-            print(name)
-            print(self.enabled)
             if self.enabled:
                 # Create a file access object with default values
                 fid = self.file_accesses.add(name)
-                print('fid')
-                print(fid)
                 file_access = self.file_accesses[fid]
 
                 if os.path.exists(name):
@@ -203,29 +196,18 @@ class Profiler(ExecutionProvider):                                              
 
     def add_file_access(self, file_access):  # arquivo aqui
         """After activation that called open finish, add file_accesses to it"""
-        print("teste add_file_access")
         activation = self.current_activation
         file_access.function_activation_id = activation.id
         activation.file_accesses.append(file_access)
 
     def new_connect(self, old_connect):  #
         """Wrap the connect function to register db access"""
-        print('teste new_connect')
-        print(self)
-        print('teste new_connect')
-        print(old_connect)
-        print('teste new_connect')
 
         def connect(*args, **kwargs):                                         # pylint: disable=redefined-builtin
             """Open file and add it to file_accesses"""
-            print("teste connect")
-            print(args)
-            print(kwargs)
-            print(self.enabled)
             if self.enabled:
                 # Create a file access object with default values
                 dbid = self.db_accesses.add(kwargs['database'])
-                print(dbid)
                 db_access = self.db_accesses[dbid]
 
                 '''
@@ -249,13 +231,11 @@ class Profiler(ExecutionProvider):                                              
                 #encontra as poscioes dos comandos dml
                 indices_dml = []
                 i = 0
-                print("encontra as poscioes dos comandos dml")
                 while True:
                     indice_ini = self.metascript.code.upper().find('EXECUTE(', i)
                     if indice_ini < 0:
                         break
                     indice_ini = indice_ini + 9
-                    print(indice_ini)
                     offset = 6 + 9
                     while True:
                         indice_fim = self.metascript.code.upper().find('\"', indice_ini + offset) # isso aqui vai dar caô se o dml tiver parenteses
@@ -263,26 +243,25 @@ class Profiler(ExecutionProvider):                                              
                             break
                         else:
                             offset = offset + indice_fim
-                    print(indice_fim)
 
                     indices_dml.append((indice_ini, indice_fim))
                     i = indice_ini + 1
 
-                print(indices_dml)
 
                 # usa os indices para encontrar os comandos
                 dmls = []
                 for indice in indices_dml:
                     dmls.append(self.metascript.code[indice[0]:indice[1]])
-                print(dmls)
 
                 mycursor = mydb.cursor()
                 db_access.dml = []
                 #calcula as hashs de cada tabela
+                print(dmls)
                 for comando in dmls:
 
                     indices_from = [i for i, x in enumerate(comando.upper().split()) if x == "FROM"]
                     indices_join = [i for i, x in enumerate(comando.upper().split()) if x == "JOIN"]
+                    indices_into = [i for i, x in enumerate(comando.upper().split()) if x == "INTO"]
                     tabelas = []
                     hash_tabelas = []
                     if len(indices_from) > 0:
@@ -294,8 +273,9 @@ class Profiler(ExecutionProvider):                                              
                     if len(indices_join) > 0:
                         for item in indices_join:
                             tabelas.append(comando.split()[item + 1])
-
-                    print(tabelas)
+                    if len(indices_into) > 0:
+                        for item in indices_into:
+                            tabelas.append(comando.split()[item + 1])
                     for tabela in tabelas:
                         select = "SELECT * FROM " + tabela
                         mycursor.execute(select)
@@ -308,21 +288,22 @@ class Profiler(ExecutionProvider):                                              
                         hash_tabelas.append(hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest())
 
                     mycursor.execute(comando)
-                    myresult = mycursor.fetchall()
+                    try:
+                        myresult = mycursor.fetchall()
 
-                    stringao = ""
-                    for row in myresult:
-                        for col in row:
-                            stringao = stringao + col.__str__()
-                    hash_comando = hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest()
+                        stringao = ""
+                        for row in myresult:
+                            for col in row:
+                                stringao = stringao + col.__str__()
+                        hash_comando = hashlib.sha1(bytes(stringao, 'utf-8')).hexdigest()
 
+                    except mysql.connector.errors.InterfaceError:
+                        hash_comando = "INSERT command don't have a result"
                     db_access.dml.append((tabelas, hash_tabelas, comando, hash_comando))
 
                 # Update with the informed keyword arguments (mode / buffering)
 
                 db_access.dml = db_access.dml.__str__()
-                print('content_hash')
-                print(hashlib.sha1(bytes(db_access.dml.__str__(), 'utf-8')).hexdigest())
                 db_access.content_hash = hashlib.sha1(bytes(db_access.dml.__str__(), 'utf-8')).hexdigest()
                 db_access.update(kwargs)
                 # Update with the informed positional arguments
@@ -348,7 +329,6 @@ class Profiler(ExecutionProvider):                                              
 
     def add_db_access(self, db_access):  # arquivo aqui
         """After activation that called open finish, add file_accesses to it"""
-        print("teste add_db_access")
         activation = self.current_activation
         db_access.function_activation_id = activation.id
         activation.db_accesses.append(db_access)

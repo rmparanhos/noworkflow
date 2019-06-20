@@ -34,7 +34,6 @@ def main():
                                      formatter_class=SmartFormatter)
     parser.add_argument("-v", "--version", action="version",
                         version="noWorkflow {}".format(version()))
-    print('teste')
     subparsers = parser.add_subparsers()
     commands = [
         Run(),
