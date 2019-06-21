@@ -104,7 +104,7 @@ class Diff(NotebookCommand):
         add_arg("-f", "--file-accesses", action="store_true",
                 help="compare read/write access to files")
         add_arg("-db", "--database-accesses", action="store_true",
-                help="compare read operations in a database")
+                help="compare read/write operations in a database")
         add_arg("-t", "--hide-timestamps", action="store_true",
                 help="hide timestamps")
         add_arg("--brief", action="store_true",
