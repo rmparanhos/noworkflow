@@ -256,7 +256,6 @@ class Profiler(ExecutionProvider):                                              
                 mycursor = mydb.cursor()
                 db_access.dml = []
                 #calcula as hashs de cada tabela
-                print(dmls)
                 for comando in dmls:
 
                     indices_from = [i for i, x in enumerate(comando.upper().split()) if x == "FROM"]
